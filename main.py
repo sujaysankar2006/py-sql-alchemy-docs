@@ -5,6 +5,7 @@ Base.metadata.create_all(bind=engine)
 
 def employee_operations():
     db = SessionLocal()
+    
  
     print('EMPLOYEE MANAGEMENT SYSTEM')
     print('1. Create new employee')
