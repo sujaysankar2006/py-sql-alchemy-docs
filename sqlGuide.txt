@@ -1,0 +1,116 @@
+🚀 SQLAlchemy Crash Course (Beginner → Advanced)
+
+🔥 What is SQLAlchemy?
+
+SQLAlchemy is a Python library that helps you work with databases (MySQL, PostgreSQL, SQLite, Oracle, etc.) in a clean and powerful way.
+
+It has two main parts:
+
+1. Core → Low-level
+
+You write SQL-like commands in Python
+(SELECT, INSERT, UPDATE… but using Python objects)
+
+2. ORM → High-level
+
+You create Python classes (User, Product, Order)
+and SQLAlchemy converts them into real database tables automatically.
+
+Most modern apps use ORM, so we will focus on that.
+
+⸻
+
+🧩 1. SQLAlchemy Installation
+ pip install sqlalchemy
+pip install sqlalchemy[asyncio]   # if you want async later
+
+🧩 2. How SQLAlchemy Works (Simple Explanation)
+
+You need 3 things:
+
+✔ Engine
+
+The connection to your database.
+
+✔ Session
+
+The tool for talking to the DB (insert, get, delete).
+
+✔ Models
+
+Python classes that represent database tables (ORM).
+
+==========================================================
+ 3. Create First SQLAlchemy Project (Beginner)
+
+ step1: import the lib and create a engine
+ from sqlalchemy import create_engine,Integer,String,Coloumns
+
+engine = create_engine("sqlite:///students.db", echo=True)
+echo=True prints SQL generated behind the scenes.
+  --------------------------
+ Step 2: Create Base (ORM Foundation)
+from sqlalchemy.orm import declartive_base,sessionmarker
+Base=declartive_base()
+---------------------------------
+step3: create a model (table)
+from sqlalchemy import Columns,Integer,String
+class Students(Base):
+    __Tablename__='student_table'
+    name=Column(String)
+    id=Column(Integer)
+    age=Column(Integer)
+Base.metadata.create_all(engine)
+--------------------------------------------
+step4:create a session
+from sqlalchemy.orm import sessionmaker
+
+sessionlocal=sessionmarker(bind=engine)
+session=sessionlocal()
+-------------------------------------------
+step5:CURD operations
+
+student_detail=Student(name='abcd',id=1,age=12)
+session.add(student_detail)
+session.commit()
+
+if more details then
+data=[ 
+  ('Guna',2,13),
+  ('Arsan',3,12),
+  ('Anbu',4,13),
+  ]
+student_details=[ Student(name=name,id=id,age=age) for name,age,id in data]
+session.add(student_details)
+session.commit()
+
+student_name_modify=session.query(Student).filter_by(Student.name='Guna').first()
+if student_name_modify:
+     student_name_modify.name='senthil'
+     session.add(student_name_modify)
+     session.commit()
+    print("\nUpdated name :" student_name_modify)
+print_all=session.query(Student).all()
+for details in print_all:
+   print(details.name,details.id,details.age)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
